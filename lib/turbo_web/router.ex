@@ -1,4 +1,5 @@
 defmodule TurboWeb.Router do
+  alias TurboWeb.TaskController
   use TurboWeb, :router
 
   pipeline :browser do
@@ -24,9 +25,13 @@ defmodule TurboWeb.Router do
     pipe_through :browser
 
     get "/", TaskController, :index
+    get "/list", TaskController, :list
     get "/new", TaskController, :new
     get "/show/:uuid", TaskController, :show
+    get "update/:uuid", TaskController, :update_form
+
     post "/create", TaskController, :create
+    post "/update/:uuid", TaskController, :update
   end
 
   # Other scopes may use custom stacks.

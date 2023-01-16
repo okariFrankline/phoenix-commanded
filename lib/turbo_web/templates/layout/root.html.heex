@@ -14,7 +14,8 @@
       <section class="container">
         <nav>
           <ul class="flex space-x-5">
-            <li><a href={Routes.task_path(@conn, :index)} class="text-blue-400"> All tasks</a></li>
+          <li><a href={Routes.task_path(@conn, :index)} class="text-blue-400"> Home</a></li>
+            <li><a href={Routes.task_path(@conn, :list)} class="text-blue-400"> All tasks</a></li>
             <li> <a href={Routes.task_path(@conn, :new)} class="text-blue-400"> New task </a></li>
 
           </ul>

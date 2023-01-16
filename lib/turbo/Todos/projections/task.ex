@@ -30,4 +30,9 @@ defmodule Turbo.Todos.Projections.Task do
     |> cast(attrs, [:title, :due_date, :uuid])
     |> validate_required([:title, :due_date, :uuid])
   end
+
+  @doc false
+  def changeset(%__MODULE__{} = task, attrs \\ %{}) do
+    cast(task, attrs, [:due_date, :title])
+  end
 end

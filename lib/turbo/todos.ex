@@ -1,7 +1,7 @@
 defmodule Turbo.Todos do
   @moduledoc false
 
-  alias Turbo.Todos.Commands.CreateTask
+  alias Turbo.Todos.Commands.{CreateTask, UpdateTask}
 
   alias Turbo.Todos.Queries.{EntityByUuid, TaskByUuid}
 
@@ -16,13 +16,21 @@ defmodule Turbo.Todos do
     params
     |> CreateTask.new()
     |> CreateTask.put_uuid()
-    |> then(&dispatch_task(&1, &1.task_uuid, Task))
+    |> then(&dispatch_command(&1, &1[:task_uuid]))
   end
 
-  defp dispatch_task(cmd, uuid, projection) do
-    with :ok <- Turbo.dispatch(cmd, consistency: :strong),
-         query <- EntityByUuid.new(projection, uuid),
-         do: {:ok, Turbo.Repo.one!(query)}
+  @doc """
+  Updates a given task
+  """
+  @spec update_task(uuid :: String.t(), params :: map()) ::
+          {:ok, Task.t()} | {:error, :not_found} | {:error, :validation_errors, errors :: term}
+  def update_task(uuid, params) do
+    with {:ok, _task} <- task_by_uuid(uuid) do
+      params
+      |> UpdateTask.new()
+      |> UpdateTask.put_uuid(uuid)
+      |> then(&dispatch_command(&1, &1[:task_uuid]))
+    end
   end
 
   @doc """
@@ -43,4 +51,10 @@ defmodule Turbo.Todos do
   """
   @spec all_tasks() :: [Task.t()] | []
   def all_tasks, do: Turbo.Repo.all(Task)
+
+  defp dispatch_command(cmd, uuid, projection \\ Task) do
+    with :ok <- Turbo.dispatch(cmd, consistency: :strong),
+         query <- EntityByUuid.new(projection, uuid),
+         do: {:ok, Turbo.Repo.one!(query)}
+  end
 end

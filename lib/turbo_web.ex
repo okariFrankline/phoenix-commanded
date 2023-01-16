@@ -24,6 +24,7 @@ defmodule TurboWeb do
       import Plug.Conn
       import TurboWeb.Gettext
       import TurboWeb.Helpers
+      import TurboWeb.TurboFrames
       alias TurboWeb.Router.Helpers, as: Routes
     end
   end
@@ -32,6 +33,7 @@ defmodule TurboWeb do
     quote do
       use Phoenix.View,
         root: "lib/turbo_web/templates",
+        pattern: "**/*",
         namespace: TurboWeb
 
       # Import convenience functions from controllers
@@ -98,6 +100,8 @@ defmodule TurboWeb do
 
       import TurboWeb.ErrorHelpers
       import TurboWeb.Gettext
+      import TurboWeb.TurboFrames
+      import TurboWeb.Helpers
       alias TurboWeb.Router.Helpers, as: Routes
     end
   end

@@ -1,0 +1,7 @@
+<%= if is_turbo_frame_request?(@conn) do %>
+    <turbo-frame id={turbo_frame_id(@conn)}>
+        <%= render("forms/new_task.html", changeset: @changeset, conn: @conn, action: Routes.task_path(@conn, :update, task: @task)) %>
+    </turbo-frame>
+<% else %>
+    <%= render("forms/new_task.html", changeset: @changeset, conn: @conn, action: Routes.task_path(@conn, :update, task: @task)) %>
+<% end %>

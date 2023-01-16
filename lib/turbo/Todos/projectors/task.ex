@@ -9,7 +9,8 @@ defmodule Turbo.Todos.Projectors.Task do
 
   alias Ecto.Multi
 
-  alias Turbo.Todos.Events.TaskCreated
+  alias Turbo.Todos
+  alias Turbo.Todos.Events.{TaskCreated, TaskUpdated}
   alias Turbo.Todos.Projections.Task
 
   require Logger
@@ -26,6 +27,15 @@ defmodule Turbo.Todos.Projectors.Task do
     @new_multi
     |> Multi.insert(:task, Task.creation_changeset(changes))
     |> process_transaction(:task)
+  end
+
+  def handle(%TaskUpdated{task_uuid: uuid} = event, _) do
+    changes = Map.from_struct(event)
+
+    @new_multi
+    |> Multi.run(:task, fn _, _ -> Todos.task_by_uuid(uuid) end)
+    |> Multi.run(:updated_task, fn _, %{task: task} -> Task.changeset(task, changes) end)
+    |> process_transaction(:updated_task)
   end
 
   @doc false
