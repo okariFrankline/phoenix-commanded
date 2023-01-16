@@ -7,4 +7,8 @@ defmodule Turbo do
   if it comes from the database, an external API or others.
   """
   use Commanded.Application, otp_app: :turbo
+
+  alias Turbo.Todos
+
+  router(Todos.Router)
 end

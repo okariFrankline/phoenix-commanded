@@ -20,6 +20,15 @@ defmodule TurboWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/tasks", TurboWeb do
+    pipe_through :browser
+
+    get "/", TaskController, :index
+    get "/new", TaskController, :new
+    get "/show/:uuid", TaskController, :show
+    post "/create", TaskController, :create
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TurboWeb do
   #   pipe_through :api

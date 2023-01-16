@@ -1,0 +1,11 @@
+<div class="mx-auto px-5">
+    <h1> All Tasks </h1>
+
+    <%= for task <- @tasks do %>
+        <div class="py-5">
+            <p> Title: <%= task.title %> </p>
+            <p> Due date: <%= task.due_date %> </p>
+            <hr class="my-2"/>
+        </div>
+    <% end %>
+</div>

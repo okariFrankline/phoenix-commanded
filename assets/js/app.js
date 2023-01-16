@@ -21,7 +21,62 @@
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 
+// this line ensures that we have turbo installed
 import "@hotwired/turbo"
+
+// ensure that dom is mounted
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('Dom ready')
+})
+
+// confirm that turbo was installed correctly
+document.addEventListener('turbo:load', function () {
+    // An important thing to keep in mind is that this event `turbo:load`
+    // can be used for more complex setups like behaviour installs
+
+    // However, its important to know that turbo:load runs everytime a new 
+    // page is loaded (navigation and initial loads as well). This means that
+    // a lot of care has to be taken to ensure that behaviours are installed 
+    // only for the required pages
+    console.log('Turbo has been setup correctly')
+})
+
+// To confirm the caching of pages, lets log that cache is happening
+document.addEventListener('turbo:before-cache', function () {
+    console.group("Turbo before cache called")
+
+    // We are also going to reset the form, so that when the preview is 
+    // shown, the form is empty
+    let form = document.querySelector("form")
+
+    if (form) {
+        form.reset()
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Establish Phoenix Socket and LiveView configuration.
 // import {Socket} from "phoenix"
 // import {LiveSocket} from "phoenix_live_view"

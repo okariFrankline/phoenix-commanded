@@ -17,7 +17,9 @@ defmodule Turbo.Application do
       # Start the Endpoint (http/https)
       TurboWeb.Endpoint,
       # Commanded application
-      Turbo
+      Turbo,
+      # Task Projector
+      Turbo.Todos.Projectors.Task
       # Start a worker by calling: Turbo.Worker.start_link(arg)
       # {Turbo.Worker, arg}
     ]

@@ -23,6 +23,7 @@ defmodule TurboWeb do
 
       import Plug.Conn
       import TurboWeb.Gettext
+      import TurboWeb.Helpers
       alias TurboWeb.Router.Helpers, as: Routes
     end
   end
