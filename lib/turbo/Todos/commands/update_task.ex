@@ -20,15 +20,11 @@ defmodule Turbo.Todos.Commands.UpdateTask do
 
   validates(:title,
     presence: [message: "cannot be blank"],
-    allow_nil: true,
-    allow_blank: true,
     string: true
   )
 
   validates(:due_date,
     presence: [message: "cannot be blank"],
-    allow_nil: true,
-    allow_blank: true,
     string: true
   )
 

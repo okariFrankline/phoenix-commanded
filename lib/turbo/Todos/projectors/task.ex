@@ -34,7 +34,7 @@ defmodule Turbo.Todos.Projectors.Task do
 
     @new_multi
     |> Multi.run(:task, fn _, _ -> Todos.task_by_uuid(uuid) end)
-    |> Multi.run(:updated_task, fn _, %{task: task} -> Task.changeset(task, changes) end)
+    |> Multi.update(:updated_task, fn %{task: task} -> Task.changeset(task, changes) end)
     |> process_transaction(:updated_task)
   end
 

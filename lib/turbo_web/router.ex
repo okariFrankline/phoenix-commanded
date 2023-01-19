@@ -15,23 +15,29 @@ defmodule TurboWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TurboWeb do
-    pipe_through :browser
+  # scope "/", TurboWeb do
+  #   pipe_through :browser
 
-    get "/", PageController, :index
-  end
+  #   get "/", PageController, :index
+  # end
 
-  scope "/tasks", TurboWeb do
+  scope "/tasks" do
     pipe_through :browser
 
     get "/", TaskController, :index
     get "/list", TaskController, :list
     get "/new", TaskController, :new
     get "/show/:uuid", TaskController, :show
-    get "update/:uuid", TaskController, :update_form
+    get "/update/:uuid", TaskController, :update_form
 
     post "/create", TaskController, :create
     post "/update/:uuid", TaskController, :update
+  end
+
+  scope "/stimulus", TurboWeb do
+    pipe_through :browser
+
+    get "/counter", StimulusController, :counter
   end
 
   # Other scopes may use custom stacks.

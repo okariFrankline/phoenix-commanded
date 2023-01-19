@@ -1,6 +1,9 @@
-<turbo-frame id="task-create">
-    <div class="w-full max-w-4xl mx-auto px-4">
+<turbo-frame id={turbo_frame_id(@conn)}>
+    <div class="py-5">
         <p> Title: <%= @task.title %> </p>
         <p> Due date: <%= @task.due_date %> </p>
+        <a href={Routes.task_path(@conn, :show, @task)} class="text-blue-500 mt-2"> Details </a>
+        <a href={Routes.task_path(@conn, :update_form, @task)} class="text-blue-500 my-2" > Edit </a>
+        <hr class="my-2"/>
     </div>
 </turbo-frame>

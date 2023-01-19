@@ -50,9 +50,11 @@ defmodule TurboWeb.TaskController do
   @doc false
   def update(conn, %{"uuid" => uuid, "task" => params}) do
     with {:ok, task} <- Todos.update_task(uuid, params) do
+      IO.inspect(task)
+
       if is_turbo_frame_request?(conn) do
         conn
-        |> render("frames/task_created.html", task: task)
+        |> render("frames/task_created_frame.html", task: task)
       else
         conn
         |> put_flash(:info, "Task updated successfully")

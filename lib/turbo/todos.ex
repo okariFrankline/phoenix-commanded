@@ -16,7 +16,7 @@ defmodule Turbo.Todos do
     params
     |> CreateTask.new()
     |> CreateTask.put_uuid()
-    |> then(&dispatch_command(&1, &1[:task_uuid]))
+    |> then(&dispatch_command(&1, &1.task_uuid))
   end
 
   @doc """
@@ -29,7 +29,7 @@ defmodule Turbo.Todos do
       params
       |> UpdateTask.new()
       |> UpdateTask.put_uuid(uuid)
-      |> then(&dispatch_command(&1, &1[:task_uuid]))
+      |> then(&dispatch_command(&1, &1.task_uuid))
     end
   end
 
